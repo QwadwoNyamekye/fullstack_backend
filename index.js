@@ -1,8 +1,13 @@
 const express = require('express')
+const morgan = require('morgan')
+
 const app = express()
 const MAX = 1000000
 
 app.use(express.json())
+
+morgan.token('body', (req) => JSON.stringify(req.body))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
 const persons = [
     {
@@ -67,7 +72,7 @@ app.post('/api/persons', (request, response) => {
     else if (persons.find(n => body.name === n.name)) {
         return response.send({ error: 'name must be unique' })
     }
-g
+
     const person = {
         id: Math.floor(Math.random() * MAX),
         name: body.name,
