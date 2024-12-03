@@ -1,0 +1,31 @@
+{
+  "name": "fullstack_backend",
+  "version": "0.0.1",
+  "description": "fullstack backend in nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \\\"Echo: no test specified\\\" && exit 1",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QwadwoNyamekye/fullstack_backend.git"
+  },
+  "keywords": [
+    "nodejs",
+    "backend"
+  ],
+  "author": "Qwadwo Nyamekye",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/QwadwoNyamekye/fullstack_backend/issues"
+  },
+  "homepage": "https://github.com/QwadwoNyamekye/fullstack_backend#readme",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
