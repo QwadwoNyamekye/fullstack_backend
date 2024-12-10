@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo \\\"Echo: no test specified\\\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "deploy": "fly deploy",
+    "build:ui": "@powershell Remove-Item -Recurse -Force ./dist && cd ../../fullstack_frontend/part2/phonebook && npm run build && @powershell Copy-Item ./dist -Recurse ../../../fullstack_backend/part3",
+    "deploy:full": "npm run build:ui && npm run deploy"
   },
   "repository": {
     "type": "git",
@@ -23,10 +26,14 @@
   },
   "homepage": "https://github.com/QwadwoNyamekye/fullstack_backend#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.1",
+    "mongoose": "^8.8.3",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.9",
     "nodemon": "^3.1.7"
   }
 }
