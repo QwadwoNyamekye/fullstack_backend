@@ -1,31 +1,36 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose')
+const process = require('process')
 
-// if (process.argv.length < 5 && process.argv.length > 3) {
-//   console.log("missing arguements");
-//   process.exit(1);
-// }
+const URL = process.env.MONGODB_URI
 
-// const password = process.argv[2];
-// const name = process.argv[3];
-// const number = process.argv[4];
+mongoose.set('strictQuery', false)
 
-const URL = process.env.MONGODB_URI;
-
-mongoose.set("strictQuery", false);
-
-mongoose.connect(URL);
+mongoose.connect(URL)
 
 const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
-});
+  name: {
+    type: String,
+    minLength: 3,
+  },
+  number: {
+    type: String,
+    minLength: 8,
+    validate: {
+      validator: function (v) {
+        return /^\d{2,3}-\d+$/.test(v)
+      },
+      message: (props) => `${props.value} is not a valid phone number`,
+    },
+    required: [true, 'User Phone Number required'],
+  },
+})
 
-personSchema.set("toJSON", {
+personSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
-    delete returnedObject._id;
-    delete returnedObject.__v;
+    delete returnedObject._id
+    delete returnedObject.__v
   },
-});
+})
 
-module.exports = mongoose.model("Person", personSchema);
+module.exports = mongoose.model('Person', personSchema)
